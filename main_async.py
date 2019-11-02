@@ -1,5 +1,6 @@
 from secrets import ACCESS_TOKEN
 import timeit
+import fire
 
 
 from github import Github
@@ -31,7 +32,7 @@ async def search_github(session, keyword):
     query = f'"{keyword}" in:file extension:py'
     results = g.search_code(query, order='desc')
 
-    max_size = 40
+    max_size = 5
     print(f'Found {results.totalCount} file(s)')
     print(f'printing first {max_size} files')
     if results.totalCount > max_size:
@@ -54,16 +55,23 @@ async def search_github(session, keyword):
             # time.sleep(1)
 
 
-async def main():
+async def main(keyword):
     async with aiohttp.ClientSession() as session:
         await search_github(session, keyword)
         # html = await fetch(session, 'http://python.org')
 
 
-if __name__ == '__main__':
-    keyword = input('Enter keyword[e.g french, german etc]: ')
+def entry(keyword):
+    # keyword = 'sql'
     start_time = timeit.default_timer()
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    loop.run_until_complete(main(keyword))
     elapsed = timeit.default_timer() - start_time
     print(elapsed)
+
+
+if __name__ == '__main__':
+    # keyword = input('Enter keyword[e.g french, german etc]: ')
+    # hardcoded
+    # def hello(name="World"):
+    fire.Fire(entry)

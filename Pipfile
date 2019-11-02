@@ -10,6 +10,7 @@ pygithub = "*"
 requests = "*"
 pprint = "*"
 aiohttp = "*"
+fire = "*"
 
 [requires]
 python_version = "3.6"
