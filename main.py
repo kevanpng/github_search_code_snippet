@@ -1,15 +1,9 @@
-import pprint
-import time
 from secrets import ACCESS_TOKEN
 
 import requests
 from github import Github
 
 g = Github(ACCESS_TOKEN)
-
-print(g.get_user().get_repos())
-
-pp = pprint.PrettyPrinter(depth=6)
 
 
 def search_github(keyword):
@@ -24,10 +18,11 @@ def search_github(keyword):
     else:
         print(f'You have {rate.remaining}/{rate.limit} API calls remaining')
 
+    # queries only python files
     query = f'"{keyword}" in:file extension:py'
     result = g.search_code(query, order='desc')
 
-    max_size = 2
+    max_size = 20
     print(f'Found {result.totalCount} file(s)')
     print(f'printing first {max_size} files')
     if result.totalCount > max_size:
