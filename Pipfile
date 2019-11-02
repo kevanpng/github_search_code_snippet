@@ -9,6 +9,7 @@ verify_ssl = true
 pygithub = "*"
 requests = "*"
 pprint = "*"
+aiohttp = "*"
 
 [requires]
 python_version = "3.6"
